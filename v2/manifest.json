@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 2,
+  "id": "com.tezbar.native.clipboard-formatter",
+  "slug": "clipboard-formatter",
+  "name": "Clipboard Formatter",
+  "version": "0.1.0",
+  "description": "Removes formatting and html from the text stored in the clipboard, returning the unformatted text to the clipboard. Original extension by joshtemple; Tezbar adaptation by almatkai.",
+  "icon": "/extensions/icons/clipboard-formatter.png",
+  "runtime": "rust",
+  "replaces": [
+    "raycast.clipboard-formatter"
+  ],
+  "platforms": [
+    "macOS",
+    "Windows"
+  ],
+  "commands": [
+    {
+      "name": "index",
+      "title": "Strip Clipboard Formatting",
+      "description": "Removes formatting and html from the text stored in the clipboard, returning the unformatted text to the clipboard.",
+      "mode": "no-view",
+      "platforms": [
+        "macOS",
+        "Windows"
+      ],
+      "runtime": "rust"
+    }
+  ],
+  "verification": [
+    {
+      "platform": "macOS",
+      "state": "not-run",
+      "note": "Real OS clipboard and UI verification has not been run."
+    },
+    {
+      "platform": "Windows",
+      "state": "not-run",
+      "note": "Real OS clipboard and UI verification has not been run."
+    }
+  ]
+}

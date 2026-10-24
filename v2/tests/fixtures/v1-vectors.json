@@ -1,0 +1,1415 @@
+{
+  "sourceSha256": "b47270a92b58fefd0f213c1b87e9d076c70318ed1c85a7156ff1b11f6e2eef30",
+  "vectors": [
+    {
+      "name": "empty",
+      "input": "",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "toast",
+          "style": "failure",
+          "title": "No text content found",
+          "message": "Please copy some text or HTML content to the clipboard."
+        }
+      ]
+    },
+    {
+      "name": "unchanged",
+      "input": "already plain",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "already plain"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "space-only",
+      "input": " \t\r\n ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            ""
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "tags-only",
+      "input": "<b></b>",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            ""
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "unclosed-tag-only",
+      "input": "<",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            ""
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "basic",
+      "input": "  <b>Hello</b> <i>world</i>  ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "Hello world"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "entities",
+      "input": "&lt;b&gt; &amp; &#160; &#x41;",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "&lt;b&gt; &amp; &#160; &#x41;"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "unicode",
+      "input": "<p>Қазақ 日本 😀 é</p>",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "Қазақ 日本 😀 é"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "unmatched-less-than",
+      "input": "before <unclosed\nrest",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "before"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "unmatched-greater-than",
+      "input": ">a>>",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            ">a>>"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "nested-less-than",
+      "input": "a <<b>c>d",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a c>d"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "quoted-greater-than",
+      "input": "a<tag title=\"x>y\">b</tag>c",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "ay\">bc"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "multiline-tag",
+      "input": "a<tag\nattr=\"v\"\r\n>b</tag>c",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "abc"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "comment-regex",
+      "input": "a<!-- x > y -->b",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a y -->b"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "math-is-regex",
+      "input": "1 < 2 and 3 > 1",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "1  1"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "script-remains-text",
+      "input": "<script>alert(\"x\")</script>",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "alert(\"x\")"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "cr-runs",
+      "input": "a\r\r\rb",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a\nb"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "lf-runs",
+      "input": "a\n\n\nb",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a\nb"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "mixed-runs",
+      "input": "\r\na\r\n\n\r\rb\n\r",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a\nb"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "spaces-separate-newline-runs",
+      "input": "a\r\n \r\nb",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a\n \nb"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "tag-removal-joins-runs",
+      "input": "a\r<b>\n</b>\rb",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a\nb"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "tag-removal-joins-text",
+      "input": "a<b>b</b>c",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "abc"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "empty-tags",
+      "input": "a<>b<>c",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "abc"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "adjacent-unclosed",
+      "input": "a<b>c<d",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "ac"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "nul",
+      "input": "\u0000<b>x</b>\u0000",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "\u0000x\u0000"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "internal-unicode-line-separators",
+      "input": "a   b",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a   b"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "internal-non-crlf-whitespace",
+      "input": "a\u000b\u000b\f\f\tb",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "a\u000b\u000b\f\f\tb"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "bom-only",
+      "input": "﻿",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            ""
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "nel-only",
+      "input": "",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            ""
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "bom-and-nel",
+      "input": "﻿x﻿",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-9",
+      "input": "\t<b>x</b>\t",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-a",
+      "input": "\n<b>x</b>\n",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-b",
+      "input": "\u000b<b>x</b>\u000b",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-c",
+      "input": "\f<b>x</b>\f",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-d",
+      "input": "\r<b>x</b>\r",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-20",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-a0",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-1680",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2000",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2001",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2002",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2003",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2004",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2005",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2006",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2007",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2008",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2009",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-200a",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2028",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-2029",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-202f",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-205f",
+      "input": " <b>x</b> ",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-3000",
+      "input": "　<b>x</b>　",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "js-trim-feff",
+      "input": "﻿<b>x</b>﻿",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "not-js-trim-85",
+      "input": "<b>x</b>",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "x"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "not-js-trim-180e",
+      "input": "᠎<b>x</b>᠎",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "᠎x᠎"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "not-js-trim-200b",
+      "input": "​<b>x</b>​",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "​x​"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "not-js-trim-2060",
+      "input": "⁠<b>x</b>⁠",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "⁠x⁠"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    },
+    {
+      "name": "not-js-trim-1c",
+      "input": "\u001c<b>x</b>\u001c",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "\u001cx\u001c"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "hud",
+          "title": "Removed formatting from clipboard"
+        }
+      ]
+    }
+  ],
+  "failures": [
+    {
+      "name": "read-error",
+      "input": "<b>secret</b>",
+      "failAt": "read",
+      "kind": "error",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "toast",
+          "style": "failure",
+          "title": "Error",
+          "message": "read denied"
+        }
+      ]
+    },
+    {
+      "name": "read-non-error",
+      "input": "<b>secret</b>",
+      "failAt": "read",
+      "kind": "non-error",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "toast",
+          "style": "failure",
+          "title": "Error",
+          "message": "Unknown error encountered"
+        }
+      ]
+    },
+    {
+      "name": "write-error",
+      "input": "<b>secret</b>",
+      "failAt": "write",
+      "kind": "error",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "secret"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "toast",
+          "style": "failure",
+          "title": "Error",
+          "message": "write denied"
+        }
+      ]
+    },
+    {
+      "name": "write-non-error",
+      "input": "<b>secret</b>",
+      "failAt": "write",
+      "kind": "non-error",
+      "calls": [
+        [
+          "clipboard:read",
+          []
+        ],
+        [
+          "clipboard:write",
+          [
+            "secret"
+          ]
+        ]
+      ],
+      "effects": [
+        {
+          "kind": "toast",
+          "style": "failure",
+          "title": "Error",
+          "message": "Unknown error encountered"
+        }
+      ]
+    }
+  ]
+}

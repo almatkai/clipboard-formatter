@@ -7,3 +7,6 @@ Thumbs.db
 
 .tezbar*
 
+
+# Rust V2 build output and disposable V1 verification
+target/
