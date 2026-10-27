@@ -1,0 +1,36 @@
+{
+  "tezbarCommit": "fd300e276356587726566026f072563eb9c34cb1",
+  "v1Commit": "f5436c9aa2d5413741affcf3581242138b322bdf",
+  "files": [
+    {
+      "file": "beta_common.rs",
+      "source": "src-tauri/src/native_core/common.rs",
+      "sha256": "280a0a2f0dd04a8570b320aafc0c3ece0f5de8ddb21c363645567d6a35d84da7",
+      "bytes": 7627
+    },
+    {
+      "file": "extension-v2.schema.json",
+      "source": "schemas/extension-v2.schema.json",
+      "sha256": "6d5afda1b652605982104bdf16d1547547b98dfd707a7b2969316406c49f32af",
+      "bytes": 2420
+    },
+    {
+      "file": "TEZBAR-LICENSE.txt",
+      "source": "LICENSE",
+      "sha256": "0ed6b1b2760294d4aaaa45be38e166fcc0168e1dd5190423c096fcbe1c94afbf",
+      "bytes": 10750
+    },
+    {
+      "file": "v1-index.ts",
+      "source": "src/index.ts",
+      "sha256": "b47270a92b58fefd0f213c1b87e9d076c70318ed1c85a7156ff1b11f6e2eef30",
+      "bytes": 1123
+    },
+    {
+      "file": "v1-package.json",
+      "source": "package.json",
+      "sha256": "3ee87c457e8b6572d43b8e825d79cd460fafbf52b3b3ae834c2195cd6e47225c",
+      "bytes": 1616
+    }
+  ]
+}
